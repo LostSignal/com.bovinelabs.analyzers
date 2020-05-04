@@ -52,11 +52,12 @@ namespace BovineLabs.Analyzers.UI
                 return;
             }
 
+            var sourceFullPath = Path.GetFullPath(asset);
+
             var target = Path.Combine(targetDirectory, filename);
-            if (!AssetDatabase.CopyAsset(asset, target))
-            {
-                Debug.LogError($"File ({asset}) not found.");
-            }
+            var targetFullPath = Path.GetFullPath(target);
+
+            File.WriteAllBytes(targetFullPath, File.ReadAllBytes(sourceFullPath));
         }
 
         private void OnEnable()
